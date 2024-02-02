@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Blog</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <h1>Welcome to My Blog</h1>
+
+    <!-- Form for creating posts -->
+    <form action="/create-post" method="POST">
+        <input type="text" name="title" placeholder="Post Title" required>
+        <textarea name="content" placeholder="Post Content" required></textarea>
+        <button type="submit">Create Post</button>
+    </form>
+
+    <!-- Form for adding tasks -->
+    <form action="/create-task" method="POST">
+        <input type="text" name="task" placeholder="Enter Task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <!-- Displaying posts -->
+    <% if(posts && posts.length > 0) { %>
+        <% posts.forEach(function(post){ %>
+            <div>
+                <h2><%= post.title %></h2>
+                <p><%= post.content %></p>
+                <button onclick="location.href='/edit-post/<%= post.id %>'">Edit</button>   
+                <button onclick="if(confirm('Are you sure?')) location.href='/delete-post/<%= post.id %>';">Delete</button> 
+            </div>
+        <% }); %>
+     <% } else { %>
+        <p>No posts yet!</p>
+    <% } %>
+
+    <!-- Displaying tasks -->
+    <h2>Tasks</h2>
+    <ul>
+    <% tasks.forEach(function(task, index) { %>
+        <li>
+            <%= task %>
+            <!-- Edit button for each task -->
+            <button onclick="location.href='/edit-task/<%= index %>';">Edit</button>
+            <!-- Delete button for each task -->
+            <button onclick="location.href='/delete-task/<%= index %>';">Delete</button>
+        </li>
+    <% }); %>
+    </ul>
+</body>
+</html>
